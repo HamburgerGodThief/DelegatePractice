@@ -11,6 +11,22 @@ import UIKit
 
 protocol SelectionViewDelegate: AnyObject {
     
+    func buttonIsEnable(_ selectionView: SelectionView, didSelectButtonAt: Int)
+    
+    func buttonIsDisable(_ selectionView: SelectionView, didSelectButtonAt: Int)
+
+}
+
+extension SelectionViewDelegate {
+    
+    func buttonIsEnable(_ selectionView: SelectionView, didSelectButtonAt: Int) {
+    
+    }
+    
+    func buttonIsDisable(_ selectionView: SelectionView, didSelectButtonAt: Int) {
+        
+    }
+
 }
 
 protocol SelectionViewDataSource: AnyObject {
@@ -28,19 +44,14 @@ protocol SelectionViewDataSource: AnyObject {
 
 class SelectionView: UIView {
     
-    weak var delegate: SelectionViewDelegate? {
-        
-        didSet {
-            
-        }
-        
-    }
+    weak var delegate: SelectionViewDelegate?
     
     weak var dataSource: SelectionViewDataSource? {
         
         didSet {
             setButton()
             setIndicatorLine()
+            setButtonAction()
         }
         
     }
@@ -64,27 +75,17 @@ class SelectionView: UIView {
         return view
     }()
     
-    func setColorView() {
-        colorView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(colorView)
-        NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: colorView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 50),
-            NSLayoutConstraint(item: colorView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: colorView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: colorView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0)
-        ])
-    }
-    
     func setStackView() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = UIStackView.Distribution.fillEqually
+        stackView.alignment = .fill
         stackView.spacing = 0
         addSubview(stackView)
-        //stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: stackView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: stackView, attribute: .bottom, relatedBy: .equal, toItem: colorView, attribute: .top, multiplier: 1, constant: -5),
+            NSLayoutConstraint(item: stackView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: stackView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: stackView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0)
         ])
@@ -110,17 +111,35 @@ class SelectionView: UIView {
     func setIndicatorLine() {
         indicatorView.backgroundColor = dataSource?.colorOfUnderLine(self)
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
-        colorView.addSubview(indicatorView)
+        addSubview(indicatorView)
         
         indicatorView.frame.origin.x = 0
-        indicatorView.frame.origin.y = colorView.frame.origin.y - 5
+        indicatorView.frame.origin.y = self.frame.origin.y + 45
         indicatorView.frame.size.width = UIScreen.main.bounds.width / CGFloat(arrayButton.count)
         indicatorView.frame.size.height = 5
+    
+    }
+    
+    func setButtonAction() {
+        for btn in arrayButton {
+            btn.addTarget(self, action: #selector(didTouchButton(sender:)), for: .touchUpInside)
+        }
+    }
+    
+    @objc func didTouchButton(sender: UIButton) {
+        UIView.animate(withDuration: 0.4, animations: {
+            self.indicatorView.frame.origin.x = sender.frame.origin.x
+        })
+        for btn in arrayButton {
+            btn.isEnabled = true
+        }
+        guard let number = arrayButton.firstIndex(of: sender) else { return }
+        delegate?.buttonIsEnable(self, didSelectButtonAt: number)
+        delegate?.buttonIsDisable(self, didSelectButtonAt: number)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setColorView()
         setStackView()
         setButton()
         self.backgroundColor = .black
