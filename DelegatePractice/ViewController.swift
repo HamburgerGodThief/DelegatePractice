@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         setSelectionView()
         topSelectionView.delegate = self
         topSelectionView.dataSource = self
@@ -66,9 +67,9 @@ extension ViewController: SelectionViewDelegate, SelectionViewDataSource {
     
     func colorOfUnderLine(_ selectionView: SelectionView) -> UIColor? {
         if selectionView == topSelectionView {
-            return .red
+            return .white
         }
-        return .red
+        return .blue
     }
     
     func colorOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIColor? {

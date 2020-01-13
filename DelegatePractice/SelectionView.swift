@@ -31,7 +31,7 @@ class SelectionView: UIView {
     weak var delegate: SelectionViewDelegate? {
         
         didSet {
-            setButton()
+            
         }
         
     }
@@ -40,6 +40,7 @@ class SelectionView: UIView {
         
         didSet {
             setButton()
+            setIndicatorLine()
         }
         
     }
@@ -60,7 +61,6 @@ class SelectionView: UIView {
     
     let indicatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .blue
         return view
     }()
     
@@ -84,7 +84,7 @@ class SelectionView: UIView {
         //stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: stackView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: stackView, attribute: .bottom, relatedBy: .equal, toItem: colorView, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: stackView, attribute: .bottom, relatedBy: .equal, toItem: colorView, attribute: .top, multiplier: 1, constant: -5),
             NSLayoutConstraint(item: stackView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: stackView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0)
         ])
@@ -108,13 +108,14 @@ class SelectionView: UIView {
     }
     
     func setIndicatorLine() {
+        indicatorView.backgroundColor = dataSource?.colorOfUnderLine(self)
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(indicatorView)
+        colorView.addSubview(indicatorView)
         
-        NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: indicatorView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 2),
-            NSLayoutConstraint(item: indicatorView, attribute: .bottom, relatedBy: .equal, toItem: colorView, attribute: .top, multiplier: 1, constant: -2)
-        ])
+        indicatorView.frame.origin.x = 0
+        indicatorView.frame.origin.y = colorView.frame.origin.y - 5
+        indicatorView.frame.size.width = UIScreen.main.bounds.width / CGFloat(arrayButton.count)
+        indicatorView.frame.size.height = 5
     }
     
     override init(frame: CGRect) {
@@ -122,7 +123,6 @@ class SelectionView: UIView {
         setColorView()
         setStackView()
         setButton()
-        setIndicatorLine()
         self.backgroundColor = .black
     }
     
