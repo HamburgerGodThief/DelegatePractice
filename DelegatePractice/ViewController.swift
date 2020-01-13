@@ -11,6 +11,7 @@ import UIKit
 struct BtnInfo {
     let title: String
     let color: UIColor
+    let font: UIFont
 }
 
 class ViewController: UIViewController {
@@ -21,8 +22,11 @@ class ViewController: UIViewController {
     let topColorView = UIView()
     let bottomColorView = UIView()
     
-    let topBtn = [BtnInfo(title: "Red", color: .red), BtnInfo(title: "Yellow", color: .yellow)]
-    let bottomBtn = [BtnInfo(title: "Red", color: .red), BtnInfo(title: "Yellow", color: .yellow), BtnInfo(title: "Blue", color: .blue)]
+    let topBtn = [BtnInfo(title: "Red", color: .red, font: .systemFont(ofSize: 18)),
+                  BtnInfo(title: "Yellow", color: .yellow, font: .systemFont(ofSize: 18))]
+    let bottomBtn = [BtnInfo(title: "Red", color: .red, font: .systemFont(ofSize: 18)),
+                     BtnInfo(title: "Yellow", color: .yellow, font: .systemFont(ofSize: 18)),
+                     BtnInfo(title: "Blue", color: .blue, font: .systemFont(ofSize: 18))]
     
     func setSelectionView() {
         view.addSubview(topSelectionView)
@@ -100,27 +104,25 @@ extension ViewController: SelectionViewDelegate, SelectionViewDataSource {
         return bottomBtn[buttonForNumber].title
     }
     
-    func colorOfUnderLine(_ selectionView: SelectionView) -> UIColor? {
+    func colorOfUnderLine(_ selectionView: SelectionView) -> UIColor {
         if selectionView == topSelectionView {
             return .white
         }
         return .white
     }
     
-    func colorOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIColor? {
+    func colorOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIColor {
         if selectionView == topSelectionView {
             return topBtn[buttonForNumber].color
         }
         return bottomBtn[buttonForNumber].color
     }
     
-    func fontOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIFont? {
+    func fontOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIFont {
         if selectionView == topSelectionView {
-            let buttonTitleFont = [UIFont.systemFont(ofSize: 18), UIFont.systemFont(ofSize: 18)]
-            return buttonTitleFont[buttonForNumber]
+            return topBtn[buttonForNumber].font
         }
-        let buttonTitleFont = [UIFont.systemFont(ofSize: 18), UIFont.systemFont(ofSize: 18), UIFont.systemFont(ofSize: 18)]
-        return buttonTitleFont[buttonForNumber]
+        return bottomBtn[buttonForNumber].font
     }
     
     func buttonIsEnable(_ selectionView: SelectionView, didSelectButtonAt: Int) {

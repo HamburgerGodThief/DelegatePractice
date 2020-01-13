@@ -35,11 +35,30 @@ protocol SelectionViewDataSource: AnyObject {
     
     func textOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> String
     
-    func colorOfUnderLine(_ selectionView: SelectionView) -> UIColor?
+    func colorOfUnderLine(_ selectionView: SelectionView) -> UIColor
     
-    func colorOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIColor?
+    func colorOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIColor
     
-    func fontOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIFont?
+    func fontOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIFont
+}
+
+extension SelectionViewDataSource {
+    
+    func numberOfOption(_ selectionView: SelectionView) -> Int {
+        return 2
+    }
+        
+    func colorOfUnderLine(_ selectionView: SelectionView) -> UIColor {
+        return UIColor.blue
+    }
+    
+    func colorOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIColor {
+        return UIColor.white
+    }
+    
+    func fontOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIFont {
+        return .systemFont(ofSize: 18)
+    }
 }
 
 class SelectionView: UIView {
