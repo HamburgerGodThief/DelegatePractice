@@ -135,13 +135,9 @@ extension ViewController: SelectionViewDelegate, SelectionViewDataSource {
     
     func buttonIsDisable(_ selectionView: SelectionView, didSelectButtonAt: Int) {
         if selectionView == topSelectionView && didSelectButtonAt == topSelectionView.arrayButton.count - 1 {
-            for btn in bottomSelectionView.arrayButton {
-                btn.isEnabled = false
-            }
-        } else {
-            for btn in bottomSelectionView.arrayButton {
-                btn.isEnabled = true
-            }
+            bottomSelectionView.enable = false
+        } else if selectionView == topSelectionView && didSelectButtonAt != topSelectionView.arrayButton.count - 1 {
+            bottomSelectionView.enable = true
         }
     }
 }

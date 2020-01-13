@@ -76,6 +76,7 @@ class SelectionView: UIView {
     }
     
     var arrayButton = [UIButton]()
+    var enable = true
     
     let colorView: UIView = {
         let view = UIView()
@@ -146,14 +147,13 @@ class SelectionView: UIView {
     }
     
     @objc func didTouchButton(sender: UIButton) {
-        UIView.animate(withDuration: 0.4, animations: {
-            self.indicatorView.frame.origin.x = sender.frame.origin.x
-        })
-        for btn in arrayButton {
-            btn.isEnabled = true
-        }
         guard let number = arrayButton.firstIndex(of: sender) else { return }
-        delegate?.buttonIsEnable(self, didSelectButtonAt: number)
+        if enable {
+            UIView.animate(withDuration: 0.4, animations: {
+                self.indicatorView.frame.origin.x = sender.frame.origin.x
+            })
+            delegate?.buttonIsEnable(self, didSelectButtonAt: number)
+        }
         delegate?.buttonIsDisable(self, didSelectButtonAt: number)
     }
     
