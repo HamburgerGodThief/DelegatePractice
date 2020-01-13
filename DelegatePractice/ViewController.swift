@@ -55,11 +55,13 @@ extension ViewController: SelectionViewDelegate, SelectionViewDataSource {
         return number
     }
     
-    func textOnButton(_ selectionView: SelectionView) -> String {
+    func textOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> String {
         if selectionView == topSelectionView {
-            return "1"
+            let buttonTitle = ["Red", "Yellow"]
+            return buttonTitle[buttonForNumber]
         }
-        return "1"
+        let buttonTitle = ["Red", "Yellow", "Blue"]
+        return buttonTitle[buttonForNumber]
     }
     
     func colorOfUnderLine(_ selectionView: SelectionView) -> UIColor? {
@@ -69,20 +71,22 @@ extension ViewController: SelectionViewDelegate, SelectionViewDataSource {
         return .red
     }
     
-    func colorOfTextOnButton(_ selectionView: SelectionView) -> UIColor? {
+    func colorOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIColor? {
         if selectionView == topSelectionView {
-            return .red
+            let buttonTextColor = [UIColor.red, UIColor.yellow]
+            return buttonTextColor[buttonForNumber]
         }
-        return .red
+        let buttonTextColor = [UIColor.red, UIColor.yellow, UIColor.blue]
+        return buttonTextColor[buttonForNumber]
     }
     
-    func fontOfTextOnButton(_ selectionView: SelectionView) -> UIFont? {
+    func fontOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIFont? {
         if selectionView == topSelectionView {
-            return .systemFont(ofSize: 18)
+            let buttonTitleFont = [UIFont.systemFont(ofSize: 18), UIFont.systemFont(ofSize: 18)]
+            return buttonTitleFont[buttonForNumber]
         }
-        return .systemFont(ofSize: 18)
+        let buttonTitleFont = [UIFont.systemFont(ofSize: 18), UIFont.systemFont(ofSize: 18), UIFont.systemFont(ofSize: 18)]
+        return buttonTitleFont[buttonForNumber]
     }
-    
-    
 }
 

@@ -17,13 +17,13 @@ protocol SelectionViewDataSource: AnyObject {
     
     func numberOfOption(_ selectionView: SelectionView) -> Int
     
-    func textOnButton(_ selectionView: SelectionView) -> String
+    func textOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> String
     
     func colorOfUnderLine(_ selectionView: SelectionView) -> UIColor?
     
-    func colorOfTextOnButton(_ selectionView: SelectionView) -> UIColor?
+    func colorOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIColor?
     
-    func fontOfTextOnButton(_ selectionView: SelectionView) -> UIFont?
+    func fontOfTextOnButton(_ selectionView: SelectionView, buttonForNumber: Int) -> UIFont?
 }
 
 class SelectionView: UIView {
@@ -92,15 +92,14 @@ class SelectionView: UIView {
     
     func setButton() {
         guard let numberOfButton = dataSource?.numberOfOption(self) else { return }
-        for _ in 0...numberOfButton - 1 {
+        for number in 0...numberOfButton - 1 {
             let optionButton: UIButton = {
                 let btn = UIButton()
-                btn.setTitleColor(.white, for: .normal)
+                btn.setTitle(dataSource?.textOnButton(self, buttonForNumber: number), for: .normal)
+                btn.setTitleColor(dataSource?.colorOfTextOnButton(self, buttonForNumber: number), for: .normal)
                 btn.isEnabled = true
-                btn.backgroundColor = .yellow
-                btn.layer.borderColor = UIColor.gray.cgColor
-                btn.layer.borderWidth = 2
-                btn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+                btn.backgroundColor = .black
+                btn.titleLabel?.font = dataSource?.fontOfTextOnButton(self, buttonForNumber: number)
                 return btn
             }()
             arrayButton.append(optionButton)
