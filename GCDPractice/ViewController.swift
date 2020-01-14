@@ -32,7 +32,9 @@ class ViewController: UIViewController {
     
     var semaphoreResponse: [[String: String]] = []
     let queueConcurrent = DispatchQueue(label: "Concurrent Queue", attributes: .concurrent)
-    let semaphore = DispatchSemaphore(value: 1)
+    let groupSecond = DispatchGroup()
+    let semaphoreForSecond = DispatchSemaphore(value: 0)
+    let semaphoreForThird = DispatchSemaphore(value: 0)
     
     func first() {
         taipeiProvider.fetchFirst(completion: { [weak self] result in
@@ -117,16 +119,15 @@ class ViewController: UIViewController {
         }
     }
     
-    func firstSerial() {
+    func firstSemaphore() {
         taipeiProvider.fetchFirst(completion: { [weak self] result in
             
             switch result {
                 
             case .success(let response):
-                
-                self?.semaphoreResponse.append(["Road": response.result.results[0].road,
-                                                "SpeedLimit": response.result.results[0].speedLimit])
-                
+                self?.semaphoreTopRoad.text = response.result.results[0].road
+                self?.semaphoreTopSpeed.text = response.result.results[0].speedLimit
+                self?.semaphoreForSecond.signal()
             case .failure:
                 
                 print("text: 讀取資料失敗！")
@@ -134,16 +135,15 @@ class ViewController: UIViewController {
         })
     }
     
-    func secondSerial() {
+    func secondSemaphore() {
         taipeiProvider.fetchSecond(completion: { [weak self] result in
             
             switch result {
                 
             case .success(let response):
-                
-                self?.semaphoreResponse.append(["Road": response.result.results[0].road,
-                                                "SpeedLimit": response.result.results[0].speedLimit])
-                
+                self?.semaphoreMidRoad.text = response.result.results[0].road
+                self?.semaphoreMidSpeed.text = response.result.results[0].speedLimit
+                self?.semaphoreForThird.signal()
             case .failure:
                 
                 print("text: 讀取資料失敗！")
@@ -151,16 +151,14 @@ class ViewController: UIViewController {
         })
     }
     
-    func thirdSerial() {
+    func thirdSemaphore() {
         taipeiProvider.fetchThird(completion: { [weak self] result in
             
             switch result {
                 
             case .success(let response):
-                
-                self?.semaphoreResponse.append(["Road": response.result.results[0].road,
-                                                "SpeedLimit": response.result.results[0].speedLimit])
-                
+                self?.semaphoreBottomRoad.text = response.result.results[0].road
+                self?.semaphoreBottomSpeed.text = response.result.results[0].speedLimit
             case .failure:
                 
                 print("text: 讀取資料失敗！")
@@ -168,48 +166,19 @@ class ViewController: UIViewController {
         })
     }
     
-    func serialQueue() {
-        queueConcurrent.async {
-            print("first fetch - wait")
-            self.semaphore.wait()
-            print("first fetch - wait finish")
-            self.firstSerial()
-            self.semaphoreTopRoad.text = self.firstResponseResult[0].road
-            self.semaphoreTopSpeed.text = self.firstResponseResult[0].speedLimit
-            print("first fetch - ing")
-            self.semaphore.signal()
-            print("first fetch - done")
-        }
+    func semaphorePractice() {
         
         queueConcurrent.async {
-            print("second fetch - wait")
-            self.semaphore.wait()
-            print("second fetch - wait finish")
-            self.secondSerial()
-            self.semaphoreMidRoad.text = self.secondResponseResult[0].road
-            self.semaphoreMidSpeed.text = self.secondResponseResult[0].speedLimit
-            print("second fetch - ing")
-            self.semaphore.signal()
-            print("second fetch - done")
-        }
-        
-        queueConcurrent.async {
-            print("third fetch - wait")
-            self.semaphore.wait()
-            print("third fetch - wait finish")
-            self.thirdSerial()
-            self.semaphoreBottomRoad.text = self.thirdResponseResult[0].road
-            self.semaphoreBottomSpeed.text = self.thirdResponseResult[0].speedLimit
-            print("third fetch - ing")
-            self.semaphore.signal()
-            print("third fetch - done")
+            self.firstSemaphore()
+            self.secondSemaphore()
+            self.thirdSemaphore()
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         buildGroupQueue()
-        serialQueue()
+        semaphorePractice()
         // Do any additional setup after loading the view.
     }
 
