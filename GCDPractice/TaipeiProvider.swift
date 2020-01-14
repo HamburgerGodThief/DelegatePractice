@@ -30,10 +30,10 @@ class TaipeiProvider {
                     do {
                         let response = try strongSelf.decoder.decode(TaipeiResult.self, from: data)
 
-                        DispatchQueue.main.async {
+//                        DispatchQueue.main.async {
 
                             completion(Result.success(response))
-                        }
+//                        }
 
                     } catch {
 
@@ -62,10 +62,10 @@ class TaipeiProvider {
                     do {
                         let response = try strongSelf.decoder.decode(TaipeiResult.self, from: data)
 
-                        DispatchQueue.main.async {
+//                        DispatchQueue.main.async {
 
                             completion(Result.success(response))
-                        }
+//                        }
 
                     } catch {
 
@@ -94,10 +94,10 @@ class TaipeiProvider {
                     do {
                         let response = try strongSelf.decoder.decode(TaipeiResult.self, from: data)
 
-                        DispatchQueue.main.async {
+//                        DispatchQueue.main.async {
 
                             completion(Result.success(response))
-                        }
+//                        }
 
                     } catch {
 

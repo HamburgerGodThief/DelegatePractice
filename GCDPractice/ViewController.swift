@@ -125,9 +125,14 @@ class ViewController: UIViewController {
             switch result {
                 
             case .success(let response):
-                self?.semaphoreTopRoad.text = response.result.results[0].road
-                self?.semaphoreTopSpeed.text = response.result.results[0].speedLimit
-                self?.semaphoreForSecond.signal()
+                
+                DispatchQueue.main.async {
+                    
+                    self?.semaphoreTopRoad.text = response.result.results[0].road
+                    self?.semaphoreTopSpeed.text = response.result.results[0].speedLimit
+                    self?.semaphoreForSecond.signal()
+                }
+                
             case .failure:
                 
                 print("text: 讀取資料失敗！")
@@ -142,9 +147,13 @@ class ViewController: UIViewController {
                 
             case .success(let response):
                 self?.semaphoreForSecond.wait()
-                self?.semaphoreMidRoad.text = response.result.results[0].road
-                self?.semaphoreMidSpeed.text = response.result.results[0].speedLimit
-                self?.semaphoreForThird.signal()
+                
+                DispatchQueue.main.async {
+                    
+                    self?.semaphoreMidRoad.text = response.result.results[0].road
+                    self?.semaphoreMidSpeed.text = response.result.results[0].speedLimit
+                    self?.semaphoreForThird.signal()
+                }
             case .failure:
                 
                 print("text: 讀取資料失敗！")
@@ -159,8 +168,11 @@ class ViewController: UIViewController {
                 
             case .success(let response):
                 self?.semaphoreForThird.wait()
-                self?.semaphoreBottomRoad.text = response.result.results[0].road
-                self?.semaphoreBottomSpeed.text = response.result.results[0].speedLimit
+                DispatchQueue.main.async {
+                    
+                    self?.semaphoreBottomRoad.text = response.result.results[0].road
+                    self?.semaphoreBottomSpeed.text = response.result.results[0].speedLimit
+                }
             case .failure:
                 
                 print("text: 讀取資料失敗！")
@@ -176,11 +188,32 @@ class ViewController: UIViewController {
             self.thirdSemaphore()
         }
     }
-
+    
+    @IBAction func grouptouch(_ sender: Any) {
+        buildGroupQueue()
+    }
+    
+    @IBAction func semaphoreTouch(_ sender: Any) {
+        semaphorePractice()
+    }
+    
+    @IBAction func clearLabel(_ sender: Any) {
+        self.topRoadLabel.text = "Label"
+        self.topSpeedLabel.text = "Label"
+        self.midRoadLabel.text = "Label"
+        self.midSpeedLabel.text = "Label"
+        self.bottomRoadLabel.text = "Label"
+        self.bottomSpeedLabel.text = "Label"
+        self.semaphoreTopRoad.text = "Label"
+        self.semaphoreTopSpeed.text = "Label"
+        self.semaphoreMidRoad.text = "Label"
+        self.semaphoreMidSpeed.text = "Label"
+        self.semaphoreBottomRoad.text = "Label"
+        self.semaphoreBottomSpeed.text = "Label"
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        buildGroupQueue()
-        semaphorePractice()
+        URLSession.shared.delegateQueue.maxConcurrentOperationCount = 10
         // Do any additional setup after loading the view.
     }
 
