@@ -8,22 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		64FADAE623CD4CFD003E1A10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FADAE523CD4CFD003E1A10 /* AppDelegate.swift */; };
-		64FADAE823CD4CFD003E1A10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FADAE723CD4CFD003E1A10 /* SceneDelegate.swift */; };
 		64FADAEA23CD4CFD003E1A10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FADAE923CD4CFD003E1A10 /* ViewController.swift */; };
 		64FADAED23CD4CFD003E1A10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64FADAEB23CD4CFD003E1A10 /* Main.storyboard */; };
 		64FADAEF23CD4CFE003E1A10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64FADAEE23CD4CFE003E1A10 /* Assets.xcassets */; };
 		64FADAF223CD4CFE003E1A10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64FADAF023CD4CFE003E1A10 /* LaunchScreen.storyboard */; };
+		64FADAFA23CD5E41003E1A10 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FADAF923CD5E41003E1A10 /* HTTPClient.swift */; };
+		64FADAFC23CD60CC003E1A10 /* TaipeiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FADAFB23CD60CC003E1A10 /* TaipeiRequest.swift */; };
+		64FADAFE23CD6195003E1A10 /* TaipeiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FADAFD23CD6195003E1A10 /* TaipeiData.swift */; };
+		64FADB0023CD67C2003E1A10 /* TaipeiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FADAFF23CD67C2003E1A10 /* TaipeiProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		64FADAE223CD4CFD003E1A10 /* GCDPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCDPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64FADAE523CD4CFD003E1A10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		64FADAE723CD4CFD003E1A10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		64FADAE923CD4CFD003E1A10 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		64FADAEC23CD4CFD003E1A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		64FADAEE23CD4CFE003E1A10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64FADAF123CD4CFE003E1A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64FADAF323CD4CFE003E1A10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64FADAF923CD5E41003E1A10 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		64FADAFB23CD60CC003E1A10 /* TaipeiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaipeiRequest.swift; sourceTree = "<group>"; };
+		64FADAFD23CD6195003E1A10 /* TaipeiData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaipeiData.swift; sourceTree = "<group>"; };
+		64FADAFF23CD67C2003E1A10 /* TaipeiProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaipeiProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +63,11 @@
 			isa = PBXGroup;
 			children = (
 				64FADAE523CD4CFD003E1A10 /* AppDelegate.swift */,
-				64FADAE723CD4CFD003E1A10 /* SceneDelegate.swift */,
 				64FADAE923CD4CFD003E1A10 /* ViewController.swift */,
+				64FADAF923CD5E41003E1A10 /* HTTPClient.swift */,
+				64FADAFB23CD60CC003E1A10 /* TaipeiRequest.swift */,
+				64FADAFF23CD67C2003E1A10 /* TaipeiProvider.swift */,
+				64FADAFD23CD6195003E1A10 /* TaipeiData.swift */,
 				64FADAEB23CD4CFD003E1A10 /* Main.storyboard */,
 				64FADAEE23CD4CFE003E1A10 /* Assets.xcassets */,
 				64FADAF023CD4CFE003E1A10 /* LaunchScreen.storyboard */,
@@ -140,7 +149,10 @@
 			files = (
 				64FADAEA23CD4CFD003E1A10 /* ViewController.swift in Sources */,
 				64FADAE623CD4CFD003E1A10 /* AppDelegate.swift in Sources */,
-				64FADAE823CD4CFD003E1A10 /* SceneDelegate.swift in Sources */,
+				64FADB0023CD67C2003E1A10 /* TaipeiProvider.swift in Sources */,
+				64FADAFA23CD5E41003E1A10 /* HTTPClient.swift in Sources */,
+				64FADAFC23CD60CC003E1A10 /* TaipeiRequest.swift in Sources */,
+				64FADAFE23CD6195003E1A10 /* TaipeiData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
