@@ -141,6 +141,7 @@ class ViewController: UIViewController {
             switch result {
                 
             case .success(let response):
+                self?.semaphoreForSecond.wait()
                 self?.semaphoreMidRoad.text = response.result.results[0].road
                 self?.semaphoreMidSpeed.text = response.result.results[0].speedLimit
                 self?.semaphoreForThird.signal()
@@ -157,6 +158,7 @@ class ViewController: UIViewController {
             switch result {
                 
             case .success(let response):
+                self?.semaphoreForThird.wait()
                 self?.semaphoreBottomRoad.text = response.result.results[0].road
                 self?.semaphoreBottomSpeed.text = response.result.results[0].speedLimit
             case .failure:
