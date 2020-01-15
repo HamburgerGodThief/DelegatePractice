@@ -9,8 +9,17 @@
 import Foundation
 import UIKit
 
+protocol SecondViewControllerDelegate: AnyObject {
+    
+    func passBackToVC(_ secondViewController: SecondViewController)
+    
+    func passAndCreate(_ secondViewController: SecondViewController)
+}
+
 class SecondViewController: UIViewController {
-        
+    
+    weak var delegate: SecondViewControllerDelegate?
+    var indexPath: IndexPath?
     let textField: UITextField = {
         let text = UITextField()
         text.backgroundColor = .lightGray
@@ -21,6 +30,7 @@ class SecondViewController: UIViewController {
         let btn = UIButton()
         btn.backgroundColor = .black
         btn.titleLabel?.textColor = .white
+        btn.setTitle("Button", for: .normal)
         return btn
     }()
     
@@ -48,6 +58,17 @@ class SecondViewController: UIViewController {
             NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 2 / 3, constant: 0),
             NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 40)
         ])
+        button.addTarget(self, action: #selector(didTouchButton(sender:)), for: .touchUpInside)
+    }
+    
+    @objc func didTouchButton(sender: UIButton) {
+        if indexPath != nil {
+            delegate?.passBackToVC(self)
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            delegate?.passAndCreate(self)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func viewDidLoad() {

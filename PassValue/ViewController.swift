@@ -30,6 +30,13 @@ class ViewController: UIViewController {
 //        tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .fade)
 //        tableView.reloadData()
 //    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let secondViewController = segue.destination as? SecondViewController else { return }
+        secondViewController.delegate = self
+        guard let sender = sender as? IndexPath else { return }
+        secondViewController.indexPath = sender
+        secondViewController.textField.text = labelText[sender.row]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,15 +70,34 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "PopSecondVC", sender: nil)
+        performSegue(withIdentifier: "PopSecondVC", sender: indexPath)
     }
 
 }
 
 extension ViewController: TableCellDelegate {
+    
     func pass(_ tableCell: TableCell) {
         guard let indexPath = tableView.indexPath(for: tableCell) else { return }
         labelText.remove(at: indexPath.row)
         tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .fade)
     }
+    
+}
+
+extension ViewController: SecondViewControllerDelegate {
+    
+    func passAndCreate(_ secondViewController: SecondViewController) {
+        guard let textFromTextField = secondViewController.textField.text else { return }
+        labelText.append(textFromTextField)
+        tableView.reloadData()
+    }
+    
+    func passBackToVC(_ secondViewController: SecondViewController) {
+        guard let indexPath = secondViewController.indexPath else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? TableCell else { return }
+        cell.label.text = secondViewController.textField.text
+    }
+    
+    
 }
