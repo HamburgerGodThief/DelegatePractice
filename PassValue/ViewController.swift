@@ -53,11 +53,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as? TableCell else { return UITableViewCell()}
         cell.label.text = labelText[indexPath.row]
         //cell.button.addTarget(self, action: #selector(removeCell(sender:)), for: .touchUpInside)
-        cell.deleteHandler = { (cell) in
-            self.labelText.remove(at: indexPath.row)
-            tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .fade)
-            tableView.reloadData()
-        }
+//        cell.deleteHandler = { (cell) in
+//            self.labelText.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .fade)
+//            tableView.reloadData()
+//        }
+        cell.delegate = self
         return cell
     }
     
@@ -65,4 +66,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         performSegue(withIdentifier: "PopSecondVC", sender: nil)
     }
 
+}
+
+extension ViewController: TableCellDelegate {
+    func pass(_ tableCell: TableCell) {
+        guard let indexPath = tableView.indexPath(for: tableCell) else { return }
+        labelText.remove(at: indexPath.row)
+        tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .fade)
+    }
 }

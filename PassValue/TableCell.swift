@@ -9,8 +9,15 @@
 import Foundation
 import UIKit
 
+protocol TableCellDelegate: AnyObject {
+    
+    func pass(_ tableCell: TableCell)
+    
+}
+
 class TableCell: UITableViewCell {
     
+    weak var delegate: TableCellDelegate?
     let label: UILabel = {
         let lbl = UILabel()
         lbl.backgroundColor = .orange
@@ -54,7 +61,8 @@ class TableCell: UITableViewCell {
     }
     
     @objc func removeCell(sender: UIButton) {
-        deleteHandler?(self)
+        //deleteHandler?(self)
+        delegate?.pass(self)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
