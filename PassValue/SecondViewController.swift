@@ -9,16 +9,18 @@
 import Foundation
 import UIKit
 
-protocol SecondViewControllerDelegate: AnyObject {
-    
-    func passBackToVC(_ secondViewController: SecondViewController)
-    
-    func passAndCreate(_ secondViewController: SecondViewController)
-}
+//protocol SecondViewControllerDelegate: AnyObject {
+//
+//    func passBackToVC(_ secondViewController: SecondViewController)
+//
+//    func passAndCreate(_ secondViewController: SecondViewController)
+//}
 
 class SecondViewController: UIViewController {
     
-    weak var delegate: SecondViewControllerDelegate?
+//    weak var delegate: SecondViewControllerDelegate?
+    var textHandler: ((UITextField) -> Void)?
+    var passBack: ((UITextField) -> Void)?
     var indexPath: IndexPath?
     let textField: UITextField = {
         let text = UITextField()
@@ -63,11 +65,15 @@ class SecondViewController: UIViewController {
     
     @objc func didTouchButton(sender: UIButton) {
         if indexPath != nil {
-            delegate?.passBackToVC(self)
+//            delegate?.passBackToVC(self)
             self.navigationController?.popViewController(animated: true)
+            guard let handler = passBack else { return }
+            handler(textField)
         } else {
-            delegate?.passAndCreate(self)
+//            delegate?.passAndCreate(self)
             self.navigationController?.popViewController(animated: true)
+            guard let handler = textHandler else { return }
+            handler(textField)
         }
     }
     

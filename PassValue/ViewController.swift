@@ -32,10 +32,20 @@ class ViewController: UIViewController {
 //    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let secondViewController = segue.destination as? SecondViewController else { return }
-        secondViewController.delegate = self
+//        secondViewController.delegate = self
+        secondViewController.textHandler = { (textField) in
+            guard let text = textField.text else { return }
+            self.labelText.append(text)
+            self.tableView.reloadData()
+        }
         guard let sender = sender as? IndexPath else { return }
         secondViewController.indexPath = sender
         secondViewController.textField.text = labelText[sender.row]
+        secondViewController.passBack = { (textField) in
+            guard let indexPath = secondViewController.indexPath else { return }
+            guard let cell = self.tableView.cellForRow(at: indexPath) as? TableCell else { return }
+            cell.label.text = secondViewController.textField.text
+        }
     }
     
     override func viewDidLoad() {
@@ -85,19 +95,18 @@ extension ViewController: TableCellDelegate {
     
 }
 
-extension ViewController: SecondViewControllerDelegate {
-    
-    func passAndCreate(_ secondViewController: SecondViewController) {
-        guard let textFromTextField = secondViewController.textField.text else { return }
-        labelText.append(textFromTextField)
-        tableView.reloadData()
-    }
-    
-    func passBackToVC(_ secondViewController: SecondViewController) {
-        guard let indexPath = secondViewController.indexPath else { return }
-        guard let cell = tableView.cellForRow(at: indexPath) as? TableCell else { return }
-        cell.label.text = secondViewController.textField.text
-    }
-    
-    
-}
+//extension ViewController: SecondViewControllerDelegate {
+//
+//    func passAndCreate(_ secondViewController: SecondViewController) {
+//        guard let textFromTextField = secondViewController.textField.text else { return }
+//        labelText.append(textFromTextField)
+//        tableView.reloadData()
+//    }
+//
+//    func passBackToVC(_ secondViewController: SecondViewController) {
+//        guard let indexPath = secondViewController.indexPath else { return }
+//        guard let cell = tableView.cellForRow(at: indexPath) as? TableCell else { return }
+//        cell.label.text = secondViewController.textField.text
+//    }
+//
+//}
