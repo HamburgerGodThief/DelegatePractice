@@ -13,6 +13,7 @@
 		64FADB1723CEA893003E1A10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64FADB1623CEA893003E1A10 /* Assets.xcassets */; };
 		64FADB1A23CEA893003E1A10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64FADB1823CEA893003E1A10 /* LaunchScreen.storyboard */; };
 		64FADB2223CEA93F003E1A10 /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FADB2123CEA93F003E1A10 /* TableCell.swift */; };
+		64FADB2423CEDEAA003E1A10 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64FADB2323CEDEAA003E1A10 /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		64FADB1923CEA893003E1A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64FADB1B23CEA893003E1A10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64FADB2123CEA93F003E1A10 /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
+		64FADB2323CEDEAA003E1A10 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				64FADB0D23CEA892003E1A10 /* AppDelegate.swift */,
 				64FADB1123CEA892003E1A10 /* ViewController.swift */,
+				64FADB2323CEDEAA003E1A10 /* SecondViewController.swift */,
 				64FADB2123CEA93F003E1A10 /* TableCell.swift */,
 				64FADB1323CEA892003E1A10 /* Main.storyboard */,
 				64FADB1623CEA893003E1A10 /* Assets.xcassets */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64FADB2423CEDEAA003E1A10 /* SecondViewController.swift in Sources */,
 				64FADB2223CEA93F003E1A10 /* TableCell.swift in Sources */,
 				64FADB1223CEA892003E1A10 /* ViewController.swift in Sources */,
 				64FADB0E23CEA892003E1A10 /* AppDelegate.swift in Sources */,
