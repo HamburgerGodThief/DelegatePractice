@@ -36,6 +36,8 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TableCell.self, forCellReuseIdentifier: "TableCell")
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
         setNavigationItem()
         // Do any additional setup after loading the view.
     }
